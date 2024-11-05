@@ -1,10 +1,11 @@
-import Image from "next/image";
-import Navbar from "./components/Navbar";
+import Navbar from './components/Navbar';
+import SearchBar from './components/searchBar/SearchBar';
 
 export default function Home() {
   return (
     <>
       <Navbar />
+      <SearchBar />
     </>
   );
 }

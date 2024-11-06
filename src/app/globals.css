@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 body {
-  font-family: "Arial";
+  font-family: 'Arial';
+}
+
+.googleFont {
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
 }

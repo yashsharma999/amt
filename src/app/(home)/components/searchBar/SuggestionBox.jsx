@@ -12,8 +12,8 @@ export default function SuggestionBox() {
         className='bg-white pb-[20px] w-[580px] border-[1px] border-[#dfe1e5] border-t-0  pt-0  shadow-[0_1px_6px_rgba(32,33,36,.28)] rounded-bl-[24px] rounded-br-[24px]'
       >
         <div className='border-t-[1px] border-[#e8eaed] w-[95%] mx-auto pb-[10px]'></div>
-        {mock.map((item) => (
-          <SuggestionText text={item.text} type={item.type} />
+        {mock.map((item, i) => (
+          <SuggestionText key={i} text={item.text} type={item.type} />
         ))}
         <div className='flex justify-center gap-1 mt-2'>
           <ButtonGray>Google Search</ButtonGray>

@@ -20,7 +20,7 @@ export async function GET(req) {
 
   const extractInfo = async (handler) => {
     const imageSrc = await handler.evaluate(
-      (node) => node.querySelector('img').src
+      (node) => node.querySelector('img.wETe9b.jFVN1').src
     );
 
     const hyperLink = await handler.evaluate(

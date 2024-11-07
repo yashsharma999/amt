@@ -1,6 +1,12 @@
 import React from 'react';
 
 export default function SearchImageLink() {
+  const getData = async () => {
+    console.log('came here');
+    const resp = await fetch('/api/imageSearch');
+    const data = await resp.json();
+    console.log('f', data);
+  };
   return (
     <div>
       <div className='flex items-center gap-4'>
@@ -16,6 +22,7 @@ export default function SearchImageLink() {
           placeholder='Paste image link'
         />
         <button
+          onClick={async () => await getData()}
           className='w-[95px] items-center justify-center bg-white rounded-[32px] border border-[#dadce0] text-[#1a73e8] cursor-pointer inline-flex flex-shrink-0 text-[14px] tracking-[0.25px] ml-2 outline-none px-6 py-2
         hover:bg-[rgba(25,103,210,0.08)] hover:border hover:border-[#dadce0]
         '

@@ -9,3 +9,126 @@ body {
 .googleFont {
   font-family: 'Google Sans', Roboto, Arial, sans-serif;
 }
+
+.pulsating-opacity {
+  width: 100%;
+  height: 100%;
+  animation: pulse-opacity 2s infinite ease-in-out;
+}
+
+/* Pulsating opacity animation */
+@keyframes pulse-opacity {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;  /* Minimum opacity */
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* Wrapper styling */
+.shimmer-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+}
+
+/* Image placeholder */
+.shimmer-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Text placeholders */
+.shimmer-text {
+  flex-grow: 1;
+}
+
+.shimmer-line {
+  height: 12px;
+  background-color: #f0f0f0;
+  margin-bottom: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.shimmer-line.short {
+  width: 60%;
+}
+
+.shimmer-img {
+  /* Applying the shimmer effect */
+  background: linear-gradient(
+    to right,
+    #f0f0f0 0%,
+    #e0e0e0 50%,
+    #f0f0f0 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+
+
+/* Styling for the pulsating element */
+.pulsating-element {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #f1f3f4;  /* Blue color */
+  border-radius: 50%; /* Circle */
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Pulsating animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.4); /* Make the element grow */
+    opacity: 0.6; /* Reduce opacity */
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* Fade-in keyframes */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Apply the fade-in animation */
+.fade-in {
+  opacity: 0; /* Start hidden */
+  animation: fadeIn 2s ease-in-out forwards;
+}

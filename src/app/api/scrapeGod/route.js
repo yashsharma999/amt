@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import { chromium } from 'playwright';
 
 export async function GET(req) {
@@ -10,39 +11,108 @@ export async function GET(req) {
   const browser = await chromium.launch({
     headless: true,
   });
-
   const context = await browser.newContext();
-  const page = await context.newPage();
-  await page.goto(url);
-  await page.waitForLoadState('domcontentloaded');
 
-  const searchRes = await page.$$('.G19kAf.ENn9pd');
+  try {
+    const page = await context.newPage();
+    await page.goto(url);
+    await page.waitForLoadState('domcontentloaded');
 
-  const extractInfo = async (handler) => {
-    const imageSrc = await handler.evaluate(
-      (node) => node.querySelector('img.wETe9b.jFVN1').src
-    );
+    // trying to fix lazy load of image issue
+    const sizes = await page.evaluate(() => {
+      const browserHeight = window.innerHeight;
+      const pageHeight = document.body.scrollHeight;
 
-    const hyperLink = await handler.evaluate(
-      (node) => node.querySelector('a').href
-    );
+      return { browserHeight, pageHeight };
+    });
 
-    const descriptionText = await handler.evaluate(
-      (node) => node.querySelector('.UAiK1e').textContent
-    );
+    for (let i = 0; i < sizes.pageHeight; i += sizes.browserHeight) {
+      await page.mouse.wheel(0, i);
+      console.log('scrolled to', i);
+      await page.waitForTimeout(1000);
+    }
+    // trying to fix lazy load of image issue
 
-    return {
-      imageSrc,
-      hyperLink,
-      descriptionText,
+    const searchRes = await page.$$('.G19kAf.ENn9pd');
+
+    const extractInfo = async (handler) => {
+      try {
+        if (!handler) {
+          return {
+            imageSrc: null,
+            hyperLink: '',
+            descriptionText: '',
+            sourceImg: null,
+          };
+        }
+        const imageSrc = await handler.evaluate((node) => {
+          const i = node.querySelector('img.wETe9b.jFVN1');
+          if (i) {
+            return i.src;
+          } else {
+            return null;
+          }
+        });
+
+        const hyperLink = await handler.evaluate((node) => {
+          const h = node.querySelector('a');
+          if (h) {
+            return h.href;
+          } else {
+            return '';
+          }
+        });
+
+        const descriptionText = await handler.evaluate((node) => {
+          const t = node.querySelector('.UAiK1e');
+          if (t) {
+            return t.textContent;
+          } else {
+            return '';
+          }
+        });
+
+        const sourceImg = await handler.evaluate((node) => {
+          const n = node.querySelector('img.wETe9b.YRoOie.KRdrw');
+          if (n) {
+            return n.src;
+          } else {
+            return null;
+          }
+        });
+
+        const sourceTitle = await handler.evaluate((node) => {
+          const t = node.querySelector('.fjbPGe');
+          if (t) {
+            return t.textContent;
+          } else {
+            return '';
+          }
+        });
+
+        return {
+          imageSrc,
+          hyperLink,
+          descriptionText,
+          sourceImg,
+          sourceTitle,
+        };
+      } catch (err) {
+        console.log('err while scraping', err);
+      }
     };
-  };
 
-  const results = await Promise.all(
-    searchRes.slice(0, 20).map((item) => extractInfo(item))
-  );
+    const results = await Promise.all(
+      searchRes.slice(0, 28).map((item) => extractInfo(item))
+    );
 
-  return Response.json({
-    results,
-  });
+    return Response.json({
+      results,
+    });
+  } catch (error) {
+    return NextResponse.json({ error: 'An error occurred' }, { status: 500 });
+  } finally {
+    browser.close();
+    context.close();
+  }
 }

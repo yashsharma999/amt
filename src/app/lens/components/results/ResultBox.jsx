@@ -7,8 +7,8 @@ const roboto = Roboto({ weight: '400', subsets: ['latin'] });
 export default function ResultBox({ img, desc, link }) {
   return (
     <Link href={link}>
-      <div className="bg-slate-500 rounded-[16px] w-full h-[120px] overflow-hidden">
-        <img className="object-cover h-full w-full" src={img} alt="img" />
+      <div className="bg-[#f1f3f4] rounded-[16px] w-full h-[120px] overflow-hidden">
+        <img className="object-contain h-full w-full" src={img} alt="img" />
       </div>
       <div className="px-1 pt-[12px] pb-2">
         <div className="mb-2">

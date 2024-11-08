@@ -1,10 +1,14 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 export default function Navbar() {
   return (
     <nav className="flex p-[10px] justify-between items-center border-b border-[1px] border-[#f0f0f0]">
-      <Image src={'/google.png'} alt="google" height={24} width={74} />
+      <Link href={'/'}>
+        <Image src={'/google.png'} alt="google" height={24} width={74} />
+      </Link>
+
       <div className="flex items-center">
         <div className="cursor-pointer ml-3 h-[40px] w-[40px] rounded-full flex justify-center items-center hover:bg-[#f0f1f1] transition-all ease-in">
           <svg

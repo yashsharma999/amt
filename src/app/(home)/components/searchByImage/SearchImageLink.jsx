@@ -1,9 +1,9 @@
 import React from 'react';
-
+///api/scrapeGod?imageUrl=https://google-lens-1.s3.us-east-1.amazonaws.com/eb0874f3-5f1d-44e9-b866-c05028757c47
 export default function SearchImageLink() {
   const getData = async () => {
     const resp = await fetch(
-      '/api/scrapeGod?imageUrl=https://nug-test-2.s3.us-east-1.amazonaws.com/81iYmWceZRL._SY695_.jpg'
+      '/api/scrapeGod?imageUrl=https://google-lens-1.s3.us-east-1.amazonaws.com/ea3dcf0b-4307-43b9-9eb0-71b787412cff'
     );
     const data = await resp.json();
     console.log('f', data);

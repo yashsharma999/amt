@@ -57,8 +57,6 @@ export default function ImageDropzone() {
   };
 
   const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
-    console.log('accepted files', acceptedFiles);
     handleSubmit(acceptedFiles[0]);
   }, []);
 
@@ -69,6 +67,7 @@ export default function ImageDropzone() {
     accept: {
       'image/png': ['.png'],
       'image/jpeg': ['.jpg'],
+      'image/webp': ['.webp'],
     },
     maxFiles: 1,
     maxSize: 500000,
@@ -82,7 +81,7 @@ export default function ImageDropzone() {
         className={classNames(
           'flex flex-col text-[#5F6368] h-[278px] rounded-[8px] p-[20px] border-[1px] border-[#c0c0c0] border-dashed bg-background-light ',
           {
-            '!bg-[#e5edff]': isDragActive,
+            '!bg-[#e5edff]': uploading || isDragActive,
           }
         )}
       >
@@ -90,6 +89,8 @@ export default function ImageDropzone() {
           <div className="h-full flex flex-col justify-center items-center">
             Drop an image here
           </div>
+        ) : uploading ? (
+          <p>Uploadin...</p>
         ) : (
           <>
             <div className="flex justify-center flex-grow gap-4 items-center">

@@ -8,10 +8,16 @@ import OfferedInList from './OfferedInList';
 import SearchImageDialog from '../searchByImage/SearchImageDialog';
 import SuggestionBox from './SuggestionBox';
 import TextSearch from './TextSearch';
+import SearchByAudio from './SearchByAudio';
 
 export default function SearchBar() {
   const [searchActive, setSearchActive] = useState(false);
   const [searchByImage, setSearchByImage] = useState(false);
+  const [searchByAudio, setSearchByAudio] = useState(false);
+
+  const toggleSearchByAudio = (value) => {
+    value ? setSearchByAudio(value) : setSearchByAudio(!searchByAudio);
+  };
 
   const toggleSearchByImageDialog = (value) => {
     value ? setSearchByImage(value) : setSearchByImage(!searchByImage);
@@ -19,10 +25,10 @@ export default function SearchBar() {
 
   return (
     <div>
-      <div className='flex flex-col items-center justify-center pt-[50px]'>
+      <div className="flex flex-col items-center justify-center pt-[50px]">
         <Image
           src={'/google.png'}
-          alt='google'
+          alt="google"
           height={92}
           width={272}
           className={'mb-[26px]'}
@@ -37,6 +43,7 @@ export default function SearchBar() {
             searchActive={searchActive}
             setSearchActive={setSearchActive}
             toggleSearchByImageDialog={toggleSearchByImageDialog}
+            toggleSearchByAudio={toggleSearchByAudio}
           />
         )}
 
@@ -57,6 +64,9 @@ export default function SearchBar() {
         </div>
         {/* {!searchActive && <OfferedInList />} */}
       </div>
+      {searchByAudio && (
+        <SearchByAudio toggleSearchByAudio={toggleSearchByAudio} />
+      )}
     </div>
   );
 }

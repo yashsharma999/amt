@@ -132,3 +132,28 @@ body {
   opacity: 0; /* Start hidden */
   animation: fadeIn 2s ease-in-out forwards;
 }
+
+
+.cropper-point{
+  background-color: white !important;
+  opacity: 1 !important;
+  height: 10px !important;
+  width: 10px !important;
+}
+
+.cropper-line{
+  display: none !important;
+}
+
+.cropper-point.point-n,
+.cropper-point.point-s,
+.cropper-point.point-e,
+.cropper-point.point-w
+{
+  display: none !important;
+}
+
+
+.shadowMenu {
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}

@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import ButtonGray from './common/ButtonGray';
+import UploadButton from './UploadButton';
 
 export default function Navbar() {
   return (
@@ -10,6 +12,7 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center">
+        <UploadButton />
         <div className="cursor-pointer ml-3 h-[40px] w-[40px] rounded-full flex justify-center items-center hover:bg-[#f0f1f1] transition-all ease-in">
           <svg
             fill="#444746"

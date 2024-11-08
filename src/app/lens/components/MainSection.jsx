@@ -9,10 +9,8 @@ export default function MainSection() {
         {' '}
         <ImageCropper />
       </div>
-      <div className="w-1/2 h-full">
-        {' '}
-        <Results />
-      </div>
+
+      <Results />
     </div>
   );
 }

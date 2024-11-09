@@ -1,17 +1,87 @@
-import { useClickAway } from '@uidotdev/usehooks';
+import { useClickAway, useDebounce } from '@uidotdev/usehooks';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SuggestionBox from './SuggestionBox';
+import CloseIconBtn2 from '../common/CloseIconBtn2';
 
 export default function TextSearch({
   searchActive,
   setSearchActive,
   toggleSearchByImageDialog,
   toggleSearchByAudio,
+  search,
+  setSearch,
+  handleSubmit,
+  searchSuggestions,
+  setSearchSuggestions,
+  searchHistory,
+  setSearchHistory,
 }) {
+  const debouncedSearch = useDebounce(search, 100);
+
   const ref = useClickAway(() => {
     setSearchActive(false);
+    setSearchSuggestions([]);
   });
+
+  const getAutocompleteSuggestions = async (query) => {
+    const response = await fetch(`https://api.datamuse.com/sug?s=${query}`);
+    const data = await response.json();
+    return data.map((item) => item.word);
+  };
+
+  const getRecentSearch = async () => {
+    const response = await fetch(`/api/getSearchHistory`);
+    const data = await response.json();
+    return data?.history;
+    console.log('rec search', data);
+  };
+
+  useEffect(() => {
+    if (search.length === 0) return;
+    (async () => {
+      const data = await getAutocompleteSuggestions(debouncedSearch);
+
+      setSearchSuggestions(
+        data.map((item) => {
+          return {
+            text: item,
+            type: 'suggestion',
+          };
+        })
+      );
+
+      // include previous searches
+      const arr = searchHistory.filter((item) => {
+        if (item.text.includes(debouncedSearch)) {
+          return true;
+        }
+      });
+
+      if (arr.length > 0) {
+        setSearchSuggestions((prev) => [...arr, ...prev]);
+      }
+    })();
+  }, [debouncedSearch]);
+
+  useEffect(() => {
+    (async () => {
+      const data = await getRecentSearch();
+      setSearchHistory(
+        data.map((item) => {
+          return {
+            text: item,
+            type: 'history',
+          };
+        })
+      );
+    })();
+  }, [searchActive]);
+
+  const suggestionClick = (text) => {
+    setSearch(text);
+    handleSubmit();
+  };
 
   return (
     <>
@@ -38,12 +108,29 @@ export default function TextSearch({
             <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
           </svg>
         </div>
-        <input
-          ref={ref}
-          onClick={() => setSearchActive(true)}
-          className="outline-none h-[44px] flex flex-grow"
-        ></input>
+        <form
+          className="flex flex-grow"
+          onSubmit={(ev) => {
+            ev.preventDefault();
+            handleSubmit();
+          }}
+        >
+          <input
+            ref={ref}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onClick={() => setSearchActive(true)}
+            className="outline-none h-[44px] w-full"
+          ></input>
+        </form>
         <div className="justify-end flex gap-2 h-[44px] items-center">
+          {search.length > 0 && (
+            <>
+              <CloseIconBtn2 onClick={() => setSearch('')} />
+              <div className="ml-2 h-[65%] w-[1px] bg-[#dadce0]"></div>
+            </>
+          )}
+
           <button onClick={toggleSearchByAudio} className="px-2">
             <svg
               focusable="false"
@@ -94,7 +181,20 @@ export default function TextSearch({
           </button>
         </div>
       </div>
-      {searchActive && <SuggestionBox />}
+      {searchActive && (
+        <SuggestionBox
+          suggestionClick={suggestionClick}
+          clickAwayRef={ref}
+          setSearchHistory={setSearchHistory}
+          setSearchSuggestions={setSearchSuggestions}
+          search={search}
+          suggestionList={
+            search.length === 0
+              ? searchHistory.slice(0, 11)
+              : searchSuggestions.slice(0, 11)
+          }
+        />
+      )}
     </>
   );
 }

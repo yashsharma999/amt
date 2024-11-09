@@ -14,6 +14,7 @@
     "@aws-sdk/s3-presigned-post": "^3.686.0",
     "@uidotdev/usehooks": "^2.4.1",
     "classnames": "^2.5.1",
+    "ioredis": "^5.4.1",
     "next": "15.0.1",
     "playwright": "^1.48.2",
     "react": "^18.3.1",

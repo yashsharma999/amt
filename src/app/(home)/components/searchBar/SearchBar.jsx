@@ -2,7 +2,7 @@
 import { useClickAway } from '@uidotdev/usehooks';
 import classNames from 'classnames';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ButtonGray from '../common/ButtonGray';
 import OfferedInList from './OfferedInList';
 import SearchImageDialog from '../searchByImage/SearchImageDialog';
@@ -11,6 +11,9 @@ import TextSearch from './TextSearch';
 import SearchByAudio from './SearchByAudio';
 
 export default function SearchBar() {
+  const [search, setSearch] = useState('');
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [searchHistory, setSearchHistory] = useState([]);
   const [searchActive, setSearchActive] = useState(false);
   const [searchByImage, setSearchByImage] = useState(false);
   const [searchByAudio, setSearchByAudio] = useState(false);
@@ -21,6 +24,17 @@ export default function SearchBar() {
 
   const toggleSearchByImageDialog = (value) => {
     value ? setSearchByImage(value) : setSearchByImage(!searchByImage);
+  };
+
+  const handleSubmit = async () => {
+    window.location.href = `https://www.google.com/search?q=${search}`;
+    const resp = await fetch(`/api/saveSearch`, {
+      method: 'POST',
+      body: JSON.stringify({
+        text: search,
+      }),
+    });
+    const data = await resp.json();
   };
 
   return (
@@ -44,6 +58,13 @@ export default function SearchBar() {
             setSearchActive={setSearchActive}
             toggleSearchByImageDialog={toggleSearchByImageDialog}
             toggleSearchByAudio={toggleSearchByAudio}
+            search={search}
+            setSearch={setSearch}
+            handleSubmit={handleSubmit}
+            searchSuggestions={searchSuggestions}
+            setSearchSuggestions={setSearchSuggestions}
+            searchHistory={searchHistory}
+            setSearchHistory={setSearchHistory}
           />
         )}
 

@@ -9,6 +9,7 @@ export default function SuggestionBox({
   setSearchHistory,
   setSearchSuggestions,
   search,
+  handleSubmit,
 }) {
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const itemRefs = useRef([]);
@@ -44,7 +45,7 @@ export default function SuggestionBox({
         style={{
           clipPath: 'inset(0px -10px -10px -10px)',
         }}
-        className="bg-white pb-[20px] w-[580px] border-[1px] border-[#dfe1e5] border-t-0  pt-0  shadow-[0_1px_6px_rgba(32,33,36,.28)] rounded-bl-[24px] rounded-br-[24px]"
+        className="bg-white relative z-30 pb-4 w-[580px] border-[1px] border-[#dfe1e5] border-t-0  pt-0  shadow-[0_1px_6px_rgba(32,33,36,.28)] rounded-bl-[24px] rounded-br-[24px]"
       >
         <div className="border-t-[1px] border-[#e8eaed] w-[95%] mx-auto pb-[10px]"></div>
         {suggestionList.map((item, i) => (
@@ -62,8 +63,19 @@ export default function SuggestionBox({
           />
         ))}
         <div className="flex justify-center gap-1 mt-2">
-          <ButtonGray>Google Search</ButtonGray>
-          <ButtonGray>{`I'm Feeling Lucky`}</ButtonGray>
+          <ButtonGray
+            onClick={() => {
+              if (search.length === 0) return;
+              handleSubmit();
+            }}
+          >
+            Google Search
+          </ButtonGray>
+          <ButtonGray
+            onClick={() => {
+              window.location.href = 'https://doodles.google/';
+            }}
+          >{`I'm Feeling Lucky`}</ButtonGray>
         </div>
       </div>
     </div>

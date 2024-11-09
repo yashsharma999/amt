@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import SuggestionBox from './SuggestionBox';
 import CloseIconBtn2 from '../common/CloseIconBtn2';
+import { Tooltip } from 'react-tooltip';
 
 export default function TextSearch({
   searchActive,
@@ -131,7 +132,13 @@ export default function TextSearch({
             </>
           )}
 
-          <button onClick={toggleSearchByAudio} className="px-2">
+          <button
+            onClick={toggleSearchByAudio}
+            className="px-2"
+            data-tooltip-id="search-by-voice"
+            data-tooltip-content="Search by voice"
+            data-tooltip-place="bottom"
+          >
             <svg
               focusable="false"
               viewBox="0 0 24 24"
@@ -153,7 +160,18 @@ export default function TextSearch({
               ></path>
             </svg>
           </button>
-          <button className="pr-4" onClick={toggleSearchByImageDialog}>
+          <Tooltip
+            id="search-by-voice"
+            className="custom-tooltip"
+            border="1px solid white"
+          />
+          <button
+            className="pr-4"
+            onClick={toggleSearchByImageDialog}
+            data-tooltip-id="search-by-image"
+            data-tooltip-content="Search by image"
+            data-tooltip-place="bottom"
+          >
             <svg
               className="h-[24px] w-[24px]"
               focusable="false"
@@ -179,6 +197,11 @@ export default function TextSearch({
               </g>
             </svg>
           </button>
+          <Tooltip
+            id="search-by-image"
+            className="custom-tooltip"
+            border="1px solid white"
+          />
         </div>
       </div>
       {searchActive && (
@@ -190,9 +213,10 @@ export default function TextSearch({
           search={search}
           suggestionList={
             search.length === 0
-              ? searchHistory.slice(0, 11)
-              : searchSuggestions.slice(0, 11)
+              ? searchHistory.slice(0, 10)
+              : searchSuggestions.slice(0, 10)
           }
+          handleSubmit={handleSubmit}
         />
       )}
     </>

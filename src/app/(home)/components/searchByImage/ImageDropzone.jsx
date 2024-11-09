@@ -3,7 +3,19 @@ import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import SearchImageLink from './SearchImageLink';
 import { useRouter } from 'next/navigation';
-//jpg, .png, .bmp, .tif or .webp
+import { sleep } from '@/lib/utils';
+import * as progressBar from '../../../../../assets/lottie/progress.json';
+import Lottie from 'react-lottie';
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: progressBar,
+  // rendererSettings: {
+  //   preserveAspectRatio: 'xMidYMid slice'
+  // }
+};
+
 export default function ImageDropzone() {
   const router = useRouter();
   const [uploading, setUploading] = useState(false);
@@ -56,6 +68,12 @@ export default function ImageDropzone() {
     setUploading(false);
   };
 
+  const handleUploadByLink = async (link) => {
+    setUploading(true);
+    await sleep(2000);
+    router.push(`/lens?q=${link}`);
+  };
+
   const onDrop = useCallback((acceptedFiles) => {
     handleSubmit(acceptedFiles[0]);
   }, []);
@@ -90,7 +108,10 @@ export default function ImageDropzone() {
             Drop an image here
           </div>
         ) : uploading ? (
-          <p>Uploadin...</p>
+          <div className="h-full flex flex-col gap-6 justify-center items-center">
+            <Lottie options={defaultOptions} height={100} width={100} />
+            <p className="">Uploading...</p>
+          </div>
         ) : (
           <>
             <div className="flex justify-center flex-grow gap-4 items-center">
@@ -142,7 +163,7 @@ export default function ImageDropzone() {
                 </span>
               </div>
             </div>
-            <SearchImageLink />
+            <SearchImageLink handleUploadByLink={handleUploadByLink} />
           </>
         )}
       </div>

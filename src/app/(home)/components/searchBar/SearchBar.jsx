@@ -39,7 +39,7 @@ export default function SearchBar() {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center pt-[50px]">
+      <div className="flex flex-col items-center justify-center pt-[85px]">
         <Image
           src={'/google.png'}
           alt="google"
@@ -74,7 +74,11 @@ export default function SearchBar() {
           })}
         >
           <ButtonGray>Google Search</ButtonGray>
-          <ButtonGray>{`I'm Feeling Lucky`}</ButtonGray>
+          <ButtonGray
+            onClick={() => {
+              window.location.href = 'https://doodles.google/';
+            }}
+          >{`I'm Feeling Lucky`}</ButtonGray>
         </div>
         <div
           className={classNames({

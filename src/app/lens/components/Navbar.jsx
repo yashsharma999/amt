@@ -7,7 +7,7 @@ import UploadButton from './UploadButton';
 export default function Navbar() {
   return (
     <nav className="flex p-[10px] justify-between items-center border-b border-[1px] border-[#f0f0f0]">
-      <Link href={'/'}>
+      <Link href={'/'} className="pl-4">
         <Image src={'/google.png'} alt="google" height={24} width={74} />
       </Link>
 

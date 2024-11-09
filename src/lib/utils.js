@@ -11,4 +11,8 @@ function applyBold(word, substring) {
   }
 }
 
-export { applyBold };
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export { applyBold, sleep };

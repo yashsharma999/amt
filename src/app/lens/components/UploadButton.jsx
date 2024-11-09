@@ -46,7 +46,7 @@ export default function UploadButton() {
         >
           <div className="border-b-[1px] border-b-[#0000001f] pb-2 cursor-pointer">
             <h3
-              className={`uppercase text-[12px] text-[#5F6368] px-[24px] pt-[24px] pb-[8px] ${roboto.className} font-bold tracking-wide`}
+              className={`uppercase text-[12px] text-[#5F6368] px-[24px] pt-[24px] pb-[8px] ${fontGoogleSans.className} font-bold tracking-wide`}
             >
               Upload from
             </h3>

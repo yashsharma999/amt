@@ -205,3 +205,49 @@ body {
 .animated-text span:nth-child(10) { animation-delay: 900ms; }
 .animated-text span:nth-child(11) { animation-delay: 1000ms; }
 .animated-text span:nth-child(12) { animation-delay: 1100ms; }
+
+
+
+.custom-tooltip {
+  background-color: #1f1f1f !important;
+  font-size: 11px !important;
+  color: white !important;
+  font-weight: bold;
+  border: 1px solid white !important;
+  padding:6px 12px !important;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1) !important;
+  border-radius: 0 !important;
+  z-index: 999 !important;
+}
+
+.custom-tooltip-2 {
+  background-color: #444746 !important;
+  font-size: 12px !important;
+  letter-spacing: 1px;
+  color: white !important;
+  padding:3px 8px !important;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1) !important;
+  border-radius: 4px !important;
+ 
+}
+
+.custom-tooltip-arrow{
+  display: none;
+}
+
+.progress-circle {
+  position: relative;
+  width: 100px; /* Size of the progress circle */
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #1e90ff 0% 75%,  /* Adjust 75% to set the percentage */
+    #e0e0e0 75% 100%  /* Grey background for remaining part */
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #1e90ff;
+  font-weight: bold;
+}

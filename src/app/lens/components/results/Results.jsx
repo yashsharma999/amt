@@ -82,6 +82,7 @@ const Column = ({ data }) => {
           desc={item.descriptionText}
           srcImg={item.sourceImg}
           srcTitle={item.sourceTitle}
+          priceTag={item.priceTag}
         />
       ))}
     </div>

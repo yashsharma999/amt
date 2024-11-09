@@ -121,7 +121,6 @@ export default function ImageCropper() {
       >
         <span>
           <svg
-            enable-background="new 0 0 24 24"
             height="18"
             viewBox="0 0 24 24"
             width="18"

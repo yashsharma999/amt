@@ -43,6 +43,7 @@ export async function GET(req) {
             hyperLink: '',
             descriptionText: '',
             sourceImg: null,
+            priceTag: '',
           };
         }
         const imageSrc = await handler.evaluate((node) => {
@@ -90,12 +91,22 @@ export async function GET(req) {
           }
         });
 
+        const priceTag = await handler.evaluate((node) => {
+          const p = node.querySelector('.DdKZJb');
+          if (p) {
+            return p.textContent;
+          } else {
+            return '';
+          }
+        });
+
         return {
           imageSrc,
           hyperLink,
           descriptionText,
           sourceImg,
           sourceTitle,
+          priceTag,
         };
       } catch (err) {
         console.log('err while scraping', err);

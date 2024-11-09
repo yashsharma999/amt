@@ -1,7 +1,14 @@
-function applyBold(word, start, length) {
-  const boldPart = word.slice(start, start + length);
-  const restPart = word.slice(start + length);
-  return `${word.slice(0, start)}<strong>${boldPart}</strong>${restPart}`;
+function applyBold(word, substring) {
+  if (word.startsWith(substring)) {
+    console.log(
+      word,
+      substring,
+      word.startsWith(substring),
+      word.split(substring)
+    );
+
+    return <div></div>;
+  }
 }
 
 export { applyBold };

@@ -2,6 +2,8 @@ import Image from 'next/image';
 import React from 'react';
 import { FaRegClock } from 'react-icons/fa6';
 import classNames from 'classnames';
+import { applyBold } from '@/lib/utils';
+import SearchText from '../common/SearchText';
 
 export default function SuggestionText({
   type = 'history',
@@ -12,6 +14,7 @@ export default function SuggestionText({
   suggestionClick,
   setSearchHistory,
   setSearchSuggestions,
+  search,
 }) {
   const deleteSearch = async (text) => {
     const resp = await fetch(`/api/deleteSearchTerm`, {
@@ -21,7 +24,7 @@ export default function SuggestionText({
     const data = await resp.json();
     console.log(data);
   };
-
+  // console.log(applyBold(text, search));
   return (
     <li
       ref={itemRef}
@@ -67,7 +70,7 @@ export default function SuggestionText({
             }
           )}
         >
-          {text}
+          <SearchText word={text} substring={search} />
         </p>
       </div>
       {type === 'history' && (

@@ -9,3 +9,245 @@ body {
 .googleFont {
   font-family: 'Google Sans', Roboto, Arial, sans-serif;
 }
+
+.pulsating-opacity {
+  width: 100%;
+  height: 100%;
+  animation: pulse-opacity 2s infinite ease-in-out;
+}
+
+/* Pulsating opacity animation */
+@keyframes pulse-opacity {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;  /* Minimum opacity */
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* Wrapper styling */
+.shimmer-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+}
+
+/* Image placeholder */
+.shimmer-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Text placeholders */
+.shimmer-text {
+  flex-grow: 1;
+}
+
+.shimmer-line {
+  height: 12px;
+  background-color: #f0f0f0;
+  margin-bottom: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.shimmer-line.short {
+  width: 60%;
+}
+
+.shimmer-img {
+  /* Applying the shimmer effect */
+  background: linear-gradient(
+    to right,
+    #f0f0f0 0%,
+    #e0e0e0 50%,
+    #f0f0f0 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+
+
+/* Styling for the pulsating element */
+.pulsating-element {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #f1f3f4;  /* Blue color */
+  border-radius: 50%; /* Circle */
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.pulsating-element-recorder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  background-color: #f1f3f4;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* Fade-in keyframes */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Apply the fade-in animation */
+.fade-in {
+  opacity: 0; /* Start hidden */
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+
+.cropper-point{
+  background-color: white !important;
+  opacity: 1 !important;
+  height: 10px !important;
+  width: 10px !important;
+}
+
+.cropper-line{
+  display: none !important;
+}
+
+.cropper-point.point-n,
+.cropper-point.point-s,
+.cropper-point.point-e,
+.cropper-point.point-w
+{
+  display: none !important;
+}
+
+
+.shadowMenu {
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.lightShadow {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .1);;
+}
+
+
+.animated-text span {
+  opacity: 0; /* Initially hidden */
+  display: inline-block;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Define keyframes for fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px); /* Slight upward animation */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Set delay for each character */
+.animated-text span:nth-child(1) { animation-delay: 0ms; }
+.animated-text span:nth-child(2) { animation-delay: 100ms; }
+.animated-text span:nth-child(3) { animation-delay: 200ms; }
+.animated-text span:nth-child(4) { animation-delay: 300ms; }
+.animated-text span:nth-child(5) { animation-delay: 400ms; }
+.animated-text span:nth-child(6) { animation-delay: 500ms; }
+.animated-text span:nth-child(7) { animation-delay: 600ms; }
+.animated-text span:nth-child(8) { animation-delay: 700ms; }
+.animated-text span:nth-child(9) { animation-delay: 800ms; }
+.animated-text span:nth-child(10) { animation-delay: 900ms; }
+.animated-text span:nth-child(11) { animation-delay: 1000ms; }
+.animated-text span:nth-child(12) { animation-delay: 1100ms; }
+
+
+
+.custom-tooltip {
+  background-color: #1f1f1f !important;
+  font-size: 11px !important;
+  color: white !important;
+  font-weight: bold;
+  border: 1px solid white !important;
+  padding:6px 12px !important;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1) !important;
+  border-radius: 0 !important;
+  z-index: 999 !important;
+}
+
+.custom-tooltip-2 {
+  background-color: #444746 !important;
+  font-size: 12px !important;
+  letter-spacing: 1px;
+  color: white !important;
+  padding:3px 8px !important;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1) !important;
+  border-radius: 4px !important;
+ 
+}
+
+.custom-tooltip-arrow{
+  display: none;
+}
+
+.progress-circle {
+  position: relative;
+  width: 100px; /* Size of the progress circle */
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #1e90ff 0% 75%,  /* Adjust 75% to set the percentage */
+    #e0e0e0 75% 100%  /* Grey background for remaining part */
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #1e90ff;
+  font-weight: bold;
+}

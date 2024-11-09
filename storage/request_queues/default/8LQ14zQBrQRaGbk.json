@@ -1,0 +1,9 @@
+{
+	"id": "8LQ14zQBrQRaGbk",
+	"json": "{\"id\":\"8LQ14zQBrQRaGbk\",\"url\":\"https://lens.google.com/uploadbyurl?url=https://nug-test-2.s3.us-east-1.amazonaws.com/81iYmWceZRL._SY695_.jpg\",\"loadedUrl\":\"https://lens.google.com/search?p=AbrfA8qQpknWxVALs27YtGgT3oKkvksOmG1oZB8vj_SfNC294F9hu-xv-qcwWtNt-FaL-5Ul4ccs5FidWmXKi92AmeAVjh76XvWjehqsoB1GcsX4PXYswCXzDVLsE3KbPHVMb0it0JcIWN-1crnqs1Hlp8NABXwln1UHr-q-6JO9MO2tbDhhp_QbOcFJD6latJDKtt_8stJn9-C_sA%3D%3D#lns=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsIkVrY0tKRGcxWWpObU1XRmxMV1V3WWpBdE5ETXlZeTA1Wm1Rd0xUTXlNVGRtWXprek5UQTBOUklmVFRsUlowTTBaM3AxV25Oak9FZHRjM3A0VFdaRGJITXplRzgwY0UxQ2F3PT0iLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsWyJlYmEzYWMyMy1jZTM3LTQ5NDctODcyZi02NjE1NzdmMzA0NGEiXV0=\",\"uniqueKey\":\"https://lens.google.com/uploadbyurl?url=https%3A%2F%2Fnug-test-2.s3.us-east-1.amazonaws.com%2F81iYmWceZRL._SY695_.jpg\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2024-11-06T17:49:57.656Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://lens.google.com/uploadbyurl?url=https%3A%2F%2Fnug-test-2.s3.us-east-1.amazonaws.com%2F81iYmWceZRL._SY695_.jpg",
+	"url": "https://lens.google.com/uploadbyurl?url=https://nug-test-2.s3.us-east-1.amazonaws.com/81iYmWceZRL._SY695_.jpg"
+}

@@ -11,7 +11,7 @@ export default function SearchImageDialog({ toggleSearchByImageDialog }) {
   return (
     <div
       ref={ref}
-      className='bg-white googleFont p-[20px] w-[592px] shadow-[0_4px_6px_rgba(32,33,36,.28)] rounded-[24px]'
+      className='bg-white googleFont z-[999] p-[20px] w-[592px] shadow-[0_4px_6px_rgba(32,33,36,.28)] rounded-[24px]'
     >
       <div className='flex justify-between mb-4'>
         <div>&nbsp;</div>

@@ -1,38 +1,39 @@
 import { NextResponse } from 'next/server';
 import { chromium } from 'playwright';
 
+import puppeteer from 'puppeteer';
+
 export async function GET(req) {
   const reqUrl = new URL(req.url);
-
   const imageUrl = reqUrl.searchParams.get('imageUrl');
-
   const url = `https://lens.google.com/uploadbyurl?url=${imageUrl}`;
 
-  const browser = await chromium.launch({
+  const browser = await puppeteer.launch({
     headless: true,
   });
-  const context = await browser.newContext();
+  const context = await browser.createBrowserContext();
 
   try {
     const page = await context.newPage();
-    await page.goto(url);
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-    // trying to fix lazy load of image issue
-    const sizes = await page.evaluate(() => {
-      const browserHeight = window.innerHeight;
-      const pageHeight = document.body.scrollHeight;
+    // Fixing lazy loading of images
+    // const sizes = await page.evaluate(() => {
+    //   const browserHeight = window.innerHeight;
+    //   const pageHeight = document.body.scrollHeight;
 
-      return { browserHeight, pageHeight };
-    });
+    //   return { browserHeight, pageHeight };
+    // });
 
-    for (let i = 0; i < sizes.pageHeight; i += sizes.browserHeight) {
-      await page.mouse.wheel(0, i);
-      console.log('scrolled to', i);
-      await page.waitForTimeout(1000);
-    }
-    // trying to fix lazy load of image issue
+    // for (let i = 0; i < sizes.pageHeight; i += sizes.browserHeight) {
+    //   await page.evaluate((scrollStep) => {
+    //     window.scrollBy(0, scrollStep);
+    //   }, sizes.browserHeight);
+    //   console.log('scrolled to', i);
+    //   await page.waitForTimeout(1000);
+    // }
 
+    // Selectors are slightly adjusted for Puppeteer
     const searchRes = await page.$$('.G19kAf.ENn9pd');
 
     const extractInfo = async (handler) => {
@@ -46,59 +47,25 @@ export async function GET(req) {
             priceTag: '',
           };
         }
-        const imageSrc = await handler.evaluate((node) => {
-          const i = node.querySelector('img.wETe9b.jFVN1');
-          if (i) {
-            return i.src;
-          } else {
-            return null;
-          }
-        });
 
-        const hyperLink = await handler.evaluate((node) => {
-          const h = node.querySelector('a');
-          if (h) {
-            return h.href;
-          } else {
-            return '';
-          }
-        });
-
-        const descriptionText = await handler.evaluate((node) => {
-          const t = node.querySelector('.UAiK1e');
-          if (t) {
-            return t.textContent;
-          } else {
-            return '';
-          }
-        });
-
-        const sourceImg = await handler.evaluate((node) => {
-          const n = node.querySelector('img.wETe9b.YRoOie.KRdrw');
-          if (n) {
-            return n.src;
-          } else {
-            return null;
-          }
-        });
-
-        const sourceTitle = await handler.evaluate((node) => {
-          const t = node.querySelector('.fjbPGe');
-          if (t) {
-            return t.textContent;
-          } else {
-            return '';
-          }
-        });
-
-        const priceTag = await handler.evaluate((node) => {
-          const p = node.querySelector('.DdKZJb');
-          if (p) {
-            return p.textContent;
-          } else {
-            return '';
-          }
-        });
+        const imageSrc = await handler
+          .$eval('img.wETe9b.jFVN1', (img) => img.src)
+          .catch(() => null);
+        const hyperLink = await handler
+          .$eval('a', (a) => a.href)
+          .catch(() => '');
+        const descriptionText = await handler
+          .$eval('.UAiK1e', (el) => el.textContent)
+          .catch(() => '');
+        const sourceImg = await handler
+          .$eval('img.wETe9b.YRoOie.KRdrw', (img) => img.src)
+          .catch(() => null);
+        const sourceTitle = await handler
+          .$eval('.fjbPGe', (el) => el.textContent)
+          .catch(() => '');
+        const priceTag = await handler
+          .$eval('.DdKZJb', (el) => el.textContent)
+          .catch(() => '');
 
         return {
           imageSrc,
@@ -109,7 +76,7 @@ export async function GET(req) {
           priceTag,
         };
       } catch (err) {
-        console.log('err while scraping', err);
+        console.log('Error while scraping:', err);
       }
     };
 
@@ -117,13 +84,12 @@ export async function GET(req) {
       searchRes.slice(0, 28).map((item) => extractInfo(item))
     );
 
-    return Response.json({
-      results,
-    });
+    return new Response(JSON.stringify({ results }), { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'An error occurred' }, { status: 500 });
+    return new Response(JSON.stringify({ error: 'An error occurred' }), {
+      status: 500,
+    });
   } finally {
-    browser.close();
-    context.close();
+    await browser.close();
   }
 }
